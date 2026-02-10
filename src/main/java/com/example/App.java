@@ -15,6 +15,10 @@ public class App {
      * @return discounted amount
      */
     public int calculateDiscount(int price) {
+        if (price < 0) {
+            // New branch – likely untested
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
         return price * DISCOUNT_PERCENTAGE / PERCENTAGE_DIVISOR;
     }
 
@@ -24,17 +28,19 @@ public class App {
      * @return formatted name in uppercase, or empty string if name is null/empty
      */
     public String formatName(String name) {
-        if (name == null || name.isEmpty()) {
+        if (name == null) {
             return "";
+        } else if (name.isEmpty()) {
+            return "";
+        } else if (name.length() > 20) {
+            // New branch – not covered
+            return name.substring(0, 20).toUpperCase();
         }
         return name.toUpperCase();
     }
 
     /**
      * Adds two numbers
-     * @param a first number
-     * @param b second number
-     * @return sum of a and b
      */
     public int add(int a, int b) {
         return a + b;
@@ -42,9 +48,6 @@ public class App {
 
     /**
      * Subtracts two numbers
-     * @param a first number
-     * @param b second number
-     * @return result of a - b
      */
     public int subtract(int a, int b) {
         return a - b;
@@ -52,9 +55,6 @@ public class App {
 
     /**
      * Multiplies two numbers
-     * @param a first number
-     * @param b second number
-     * @return product of a and b
      */
     public int multiply(int a, int b) {
         return a * b;
@@ -62,13 +62,10 @@ public class App {
 
     /**
      * Divides two numbers
-     * @param a dividend
-     * @param b divisor
-     * @return result of a / b
-     * @throws IllegalArgumentException if b is zero
      */
     public int divide(int a, int b) {
         if (b == 0) {
+            // Exception branch (likely not tested)
             throw new IllegalArgumentException("Cannot divide by zero");
         }
         return a / b;
@@ -76,25 +73,46 @@ public class App {
 
     /**
      * Checks if a number is positive
-     * @param number the number to check
-     * @return true if number is positive, false otherwise
      */
     public boolean isPositive(int number) {
+        if (number == 0) {
+            // Extra branch
+            return false;
+        }
         return number > 0;
     }
 
     /**
      * Checks if a number is even
-     * @param number the number to check
-     * @return true if number is even, false otherwise
      */
     public boolean isEven(int number) {
         return number % 2 == 0;
     }
 
     /**
+     * NEW METHOD – NOT COVERED
+     */
+    public String getUserType(int age) {
+        if (age < 0) {
+            return "INVALID";
+        } else if (age < 18) {
+            return "MINOR";
+        } else if (age < 60) {
+            return "ADULT";
+        } else {
+            return "SENIOR";
+        }
+    }
+
+    /**
+     * PRIVATE METHOD – NEVER CALLED
+     */
+    private void internalAuditLog(String message) {
+        System.out.println("AUDIT :: " + message);
+    }
+
+    /**
      * Main method
-     * @param args command line arguments
      */
     public static void main(String[] args) {
         App app = new App();
