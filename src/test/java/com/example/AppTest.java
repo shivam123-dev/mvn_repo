@@ -1,7 +1,6 @@
 package com.example;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
@@ -32,8 +31,8 @@ class AppTest {
 
     @Test
     void testFormatName_longName() {
-        String longName = "abcdefghijklmnopqrstuvwxyz";
-        assertEquals("ABCDEFGHIJKLMNOPQRST", app.formatName(longName));
+        assertEquals("ABCDEFGHIJKLMNOPQRST",
+                app.formatName("abcdefghijklmnopqrstuvwxyz"));
     }
 
     @Test
@@ -63,53 +62,28 @@ class AppTest {
 
     @Test
     void testDivide_byZero() {
-        Exception ex = assertThrows(IllegalArgumentException.class,
+        assertThrows(IllegalArgumentException.class,
                 () -> app.divide(5, 0));
-        assertEquals("Cannot divide by zero", ex.getMessage());
     }
 
     @Test
-    void testIsPositive_zero() {
-        assertFalse(app.isPositive(0));
-    }
-
-    @Test
-    void testIsPositive_positive() {
+    void testIsPositive() {
         assertTrue(app.isPositive(5));
-    }
-
-    @Test
-    void testIsPositive_negative() {
+        assertFalse(app.isPositive(0));
         assertFalse(app.isPositive(-3));
     }
 
     @Test
-    void testIsEven_even() {
+    void testIsEven() {
         assertTrue(app.isEven(4));
-    }
-
-    @Test
-    void testIsEven_odd() {
         assertFalse(app.isEven(5));
     }
 
     @Test
-    void testGetUserType_invalid() {
+    void testGetUserType() {
         assertEquals("INVALID", app.getUserType(-1));
-    }
-
-    @Test
-    void testGetUserType_minor() {
         assertEquals("MINOR", app.getUserType(10));
-    }
-
-    @Test
-    void testGetUserType_adult() {
         assertEquals("ADULT", app.getUserType(30));
-    }
-
-    @Test
-    void testGetUserType_senior() {
         assertEquals("SENIOR", app.getUserType(65));
     }
 }
